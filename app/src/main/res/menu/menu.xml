@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+
+    <item
+        android:id="@+id/menuItemSettings"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="addMovie"
+        app:showAsAction="always"
+
+        >
+        <menu>
+            <item
+                android:id="@+id/addInternet"
+                android:title="Add by intenet" />
+
+            <item
+                android:id="@+id/addManuall"
+                android:title="Add by yourself" />
+
+
+        </menu>
+
+
+    </item>
+
+
+    <item
+        android:id="@+id/groupColors"
+        android:icon="@android:drawable/ic_delete"
+        android:title="setting"
+        app:showAsAction="always"
+
+        >
+        <menu>
+            <item
+                android:id="@+id/exit"
+                android:title="Exit" />
+
+            <item
+                android:id="@+id/deleteAll"
+                android:title="Delete all" />
+
+
+        </menu>
+
+
+    </item>
+
+
+</menu>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ss12dark.almostmovieproject.EditActivity">
+<LinearLayout
+    android:gravity="top|center"
+    android:background="@drawable/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<HorizontalScrollView
+    android:background="@drawable/textstyle"
+    android:layout_marginTop="15sp"
+    android:layout_width="280sp"
+    android:layout_height="30sp"
+    android:textColor="@color/white"
+    android:textColorHint="@color/halfWhite">
+    <EditText
+        android:id="@+id/name"
+        android:background="@color/none"
+        android:layout_width="wrap_content"
+        android:layout_height="30sp"
+        android:textColor="@color/white"
+        android:paddingLeft="15sp"
+        android:paddingRight="15sp"
+        android:hint="@string/movie_s_name"
+        android:textColorHint="@color/halfWhite"/>
+</HorizontalScrollView>
+    <ScrollView
+        android:paddingTop="15sp"
+        android:background="@drawable/textstyle"
+        android:layout_marginTop="15sp"
+        android:layout_width="280sp"
+        android:layout_height="170sp"
+        android:textColor="@color/white"
+        android:gravity="top"
+        android:paddingLeft="15sp"
+        android:paddingRight="15sp"
+        >
+        <EditText
+            android:id="@+id/description"
+            android:textColor="@color/white"
+            android:background="@color/none"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/movie_s_description"
+            android:textColorHint="@color/halfWhite"/>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:background="@drawable/textstyle"
+        android:layout_marginTop="15sp"
+        android:layout_width="300sp"
+        android:layout_height="40sp"
+        android:orientation="horizontal">
+        <HorizontalScrollView
+
+            android:layout_width="250sp"
+            android:layout_height="30sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/halfWhite">
+            <EditText
+                android:id="@+id/url"
+                android:background="@color/none"
+                android:layout_width="wrap_content"
+                android:layout_height="30sp"
+                android:textColor="@color/white"
+                android:paddingLeft="15sp"
+                android:paddingRight="15sp"
+                android:hint="@string/movie_s_image_url"
+                android:textColorHint="@color/halfWhite"/>
+        </HorizontalScrollView>
+
+        <Button
+            android:onClick="show"
+            android:textSize="12sp"
+            android:text="@string/show"
+            android:background="@drawable/textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="40sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_marginTop="15sp"
+        android:background="@color/halfWhite"
+        android:layout_width="280sp"
+        android:layout_height="150sp"
+        android:visibility="visible"/>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_marginTop="15sp"
+        android:background="@color/halfWhite"
+        android:layout_width="280sp"
+        android:layout_height="150sp"
+        android:visibility="gone"/>
+    <LinearLayout
+        android:gravity="center|top"
+        android:layout_marginTop="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:onClick="ok"
+            android:background="@drawable/textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"/>
+        <Button
+            android:onClick="cancel"
+            android:layout_marginLeft="15sp"
+            android:background="@drawable/textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+</android.support.constraint.ConstraintLayout>
