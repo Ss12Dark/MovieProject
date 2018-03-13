@@ -1,5 +1,6 @@
 package com.example.ss12dark.almostmovieproject;
 
+        import android.app.ActivityManager;
         import android.content.Context;
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ package com.example.ss12dark.almostmovieproject;
         import android.view.animation.Animation;
         import android.widget.FrameLayout;
         import android.widget.ImageView;
+        import android.widget.LinearLayout;
         import android.widget.ProgressBar;
 
         import java.io.InputStream;
@@ -71,11 +73,12 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap>
     };
     private boolean isBitmapSet;
 
-    public DownloadImageTask(Context context, ImageView destination, String url)
+    public DownloadImageTask(LinearLayout l,Context context, ImageView destination, String url)
     {
         mDestination = destination;
         mUrl = url;
-        ViewGroup parent = (ViewGroup) destination.getParent();
+
+//        ViewGroup parent = (ViewGroup) destination.getParent();
         mFakeForError = new ImageView(context);
         destination.setVisibility(View.GONE);
         FrameLayout layout = new FrameLayout(context);
@@ -93,7 +96,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap>
         layout.addView(mProgressBar);
         layout.addView(mFakeForError);
         mProgressBar.setIndeterminate(true);
-        parent.addView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        l.addView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     protected Bitmap doInBackground(String... urls)

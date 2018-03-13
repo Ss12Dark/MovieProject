@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.net.URL;
 
@@ -17,7 +18,7 @@ public class EditActivity extends AppCompatActivity {
     EditText title;
     EditText description;
     EditText url1;
-
+    LinearLayout l;
     ImageView imageView;
 
     @Override
@@ -28,6 +29,7 @@ public class EditActivity extends AppCompatActivity {
         title = (EditText) findViewById(R.id.name);
         description = (EditText) findViewById(R.id.description);
         url1 = (EditText) findViewById(R.id.url);
+        l = (LinearLayout) findViewById(R.id.outside);
     }
 
     public void ok(View v){
@@ -48,6 +50,6 @@ public class EditActivity extends AppCompatActivity {
     }
     public void show(View v){
         String url = url1.getText().toString();
-        new DownloadImageTask(this, imageView, url).execute();
+        new DownloadImageTask(l,this, imageView, url).execute();
     }
 }

@@ -8,4 +8,7 @@
     <string name="cancel">cancel</string>
     <string name="movieCreated">Movie Created</string>
     <string name="movie_list_are_empty">movie list are empty</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="do_you_want_to_edit_the_movie_or_to_delete_it">Do you want to edit the movie or to delete it?</string>
 </resources>

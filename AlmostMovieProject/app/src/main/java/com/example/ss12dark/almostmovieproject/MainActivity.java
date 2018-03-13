@@ -80,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
         resizeTextView(tv);
         addPicture(b,url);
         tv.setText(str);
+        b.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                CustomDialogClass cdd=new CustomDialogClass(MainActivity.this);
+                cdd.show();
+                return false;
+            }
+        });
         l.addView(b);
         l.addView(tv);
     }
@@ -97,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 
     public void resizeImageView(ImageView b){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -120,34 +128,33 @@ public class MainActivity extends AppCompatActivity {
             b.setBackgroundResource(R.drawable.nopic);
             b.getBackground().setAlpha(150);
         } else {
-            try {
-                try {
-                    try {
-                        try {
-                            URI uri = new URI(u);
-                            URL url = uri.toURL();
-                            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                            b.setImageBitmap(bmp);
-                        } catch (URISyntaxException use) {
-                            Toast.makeText(this, "FATAL error with Syntax", Toast.LENGTH_SHORT).show();
-                            b.setBackgroundResource(R.drawable.nopic);
-                            b.getBackground().setAlpha(150);
-                        }
-                    } catch (MalformedURLException mue) {
-                        Toast.makeText(this, "FATAL error with image URL", Toast.LENGTH_SHORT).show();
-                        b.setBackgroundResource(R.drawable.nopic);
-                        b.getBackground().setAlpha(150);
-                    }
-                } catch (IOException ioe) {
-                    Toast.makeText(this, "FATAL error with image IO", Toast.LENGTH_SHORT).show();
-                    b.setBackgroundResource(R.drawable.nopic);
-                    b.getBackground().setAlpha(150);
-                }
-            }catch(Exception e){
-                Toast.makeText(this, "FATAL error with image loading", Toast.LENGTH_SHORT).show();
-                b.setBackgroundResource(R.drawable.nopic);
-                b.getBackground().setAlpha(150);
-            }
+
+
+//            try {
+//                try {
+//                    try {
+//                        try {
+                                 new DownloadImageTask(l,this, b, u).execute();
+//                        } catch (URISyntaxException use) {
+//                            Toast.makeText(this, "FATAL error with Syntax", Toast.LENGTH_SHORT).show();
+//                            b.setBackgroundResource(R.drawable.nopic);
+//                            b.getBackground().setAlpha(150);
+//                        }
+//                    } catch (MalformedURLException mue) {
+//                        Toast.makeText(this, "FATAL error with image URL", Toast.LENGTH_SHORT).show();
+//                        b.setBackgroundResource(R.drawable.nopic);
+//                        b.getBackground().setAlpha(150);
+//                    }
+//                } catch (IOException ioe) {
+//                    Toast.makeText(this, "FATAL error with image IO", Toast.LENGTH_SHORT).show();
+//                    b.setBackgroundResource(R.drawable.nopic);
+//                    b.getBackground().setAlpha(150);
+//                }
+//            }catch(Exception e){
+//                Toast.makeText(this, "FATAL error with image loading", Toast.LENGTH_SHORT).show();
+//                b.setBackgroundResource(R.drawable.nopic);
+//                b.getBackground().setAlpha(150);
+//            }
         }
     }
 

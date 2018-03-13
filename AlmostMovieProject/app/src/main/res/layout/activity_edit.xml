@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.ss12dark.almostmovieproject.EditActivity">
 <LinearLayout
+    android:id="@+id/outside"
     android:gravity="top|center"
     android:background="@raw/project2"
     android:layout_width="match_parent"

@@ -59,7 +59,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public void clear( ) {
+    public void clear() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_MOVIES,null,null);
         db.execSQL("delete from "+ TABLE_MOVIES);
