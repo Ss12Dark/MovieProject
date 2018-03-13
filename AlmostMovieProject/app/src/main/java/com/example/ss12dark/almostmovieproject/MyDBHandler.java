@@ -41,7 +41,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
 
         String query = "CREATE TABLE " + TABLE_MOVIES + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_NAME + " TEXT,"
                 + KEY_DESCRIPTION + " TEXT,"
                 + KEY_URL + " TEXT " + ")";
@@ -89,6 +89,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
 
         return db.delete(TABLE_MOVIES, KEY_ID + "=" + delID, null) > 0;
+
     }
 
 

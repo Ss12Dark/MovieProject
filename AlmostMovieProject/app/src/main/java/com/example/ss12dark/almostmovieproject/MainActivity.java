@@ -66,31 +66,85 @@ public class MainActivity extends AppCompatActivity {
                 while(i<names.size()) {
                 String s = names.get(i).getSubject();
                 String u = names.get(i).getUrl();
-                makeMovie(s, u);
+                String d = names.get(i).getBody();
+                int id = names.get(i).get_id();
+                makeMovie(s,d,u,id);
 
                     i++;
             }
         }
     }
 
-    public void makeMovie(String str , String url){
+    public void makeMovie(String str,String description , String url,int id){
         ImageView b = new ImageView(this);
         TextView tv = new TextView(this);
+        TextView des = new TextView(this);
+        LinearLayout ll = new LinearLayout(this);
+        LinearLayout llinside = new LinearLayout(this);
+        resizeLinearLayoutinside(llinside);
+        resizeTextDes(des);
+        resizeLinearLayout(ll);
         resizeImageView(b);
         resizeTextView(tv);
         addPicture(b,url);
         tv.setText(str);
+        des.setText(description);
+        final CustomDialogClass cdd=new CustomDialogClass(MainActivity.this,id);
         b.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
 
-                CustomDialogClass cdd=new CustomDialogClass(MainActivity.this);
+
                 cdd.show();
                 return false;
             }
         });
-        l.addView(b);
-        l.addView(tv);
+        ll.addView(des);
+        ll.addView(b);
+        ll.addView(tv);
+        l.addView(ll);
+    }
+
+    public void resizeLinearLayoutinside(LinearLayout ll){
+        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        ll.setLayoutParams(positionRules);
+        float w =translateDP(190);
+        float h =translateDP(285);
+        float m =translateDP(10);
+        int width=(int)w;
+        int hight =(int)h;
+        int mergin = (int)m;
+        positionRules.setMargins(mergin, mergin, mergin, mergin);
+        ll.setLayoutParams(positionRules);
+        ll.getLayoutParams().height = hight;
+        ll.getLayoutParams().width = width;
+        ll.setBackgroundResource(R.drawable.layoutstyle);
+
+    }
+
+    public void resizeTextDes(TextView des){
+        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        des.setLayoutParams(positionRules);
+        float m =translateDP(5);
+        des.setTextColor(Color.BLACK);
+        int mergin = (int)m;
+        float TextSize =translateDP(5);
+        des.setTextSize(TextSize);
+        positionRules.setMargins(mergin,mergin, mergin, mergin);
+        des.setLayoutParams(positionRules);
+    }
+
+    public  void resizeLinearLayout(LinearLayout ll){
+        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        ll.setLayoutParams(positionRules);
+        float h =translateDP(320);
+        float m =translateDP(15);
+        int hight =(int)h;
+        int mergin = (int)m;
+        positionRules.setMargins(mergin, mergin, mergin, mergin);
+        ll.setLayoutParams(positionRules);
+        ll.getLayoutParams().height = hight;
+        ll.setBackgroundResource(R.drawable.layoutstyle);
     }
 
     public void resizeTextView(TextView b){
@@ -123,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addPicture(ImageView b,String u) {
-//TODO: i need to fix the loading picture here
         if (u.equals("")) {
             b.setBackgroundResource(R.drawable.nopic);
             b.getBackground().setAlpha(150);
@@ -134,7 +187,8 @@ public class MainActivity extends AppCompatActivity {
 //                try {
 //                    try {
 //                        try {
-                                 new DownloadImageTask(l,this, b, u).execute();
+                                 new DownloadImageTask(this,l,this, b, u).execute();
+
 //                        } catch (URISyntaxException use) {
 //                            Toast.makeText(this, "FATAL error with Syntax", Toast.LENGTH_SHORT).show();
 //                            b.setBackgroundResource(R.drawable.nopic);
@@ -189,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.addManuall:
                 Intent add = new Intent(this,EditActivity.class);
+                add.putExtra("id",-1);
                 startActivityForResult(add,1);
                 return true;
             case R.id.exit:

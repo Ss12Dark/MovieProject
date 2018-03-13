@@ -1,23 +1,27 @@
 package com.example.ss12dark.almostmovieproject;
 
-        import android.app.ActivityManager;
-        import android.content.Context;
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
-        import android.os.AsyncTask;
-        import android.util.DisplayMetrics;
-        import android.util.Log;
-        import android.view.Gravity;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.view.animation.AlphaAnimation;
-        import android.view.animation.Animation;
-        import android.widget.FrameLayout;
-        import android.widget.ImageView;
-        import android.widget.LinearLayout;
-        import android.widget.ProgressBar;
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-        import java.io.InputStream;
+import java.io.InputStream;
 
 /**
  * Created by Sergey Shustikov (pandarium.shustikov@gmail.com) at 2015.
@@ -28,6 +32,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap>
     private final ImageView mDestination, mFakeForError;
     private final String mUrl;
     private final ProgressBar mProgressBar;
+    public Activity A;
     private Animation.AnimationListener mOutAnimationListener = new Animation.AnimationListener()
     {
         @Override
@@ -73,12 +78,13 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap>
     };
     private boolean isBitmapSet;
 
-    public DownloadImageTask(LinearLayout l,Context context, ImageView destination, String url)
+    public DownloadImageTask(Activity c ,LinearLayout l,Context context, ImageView destination, String url)
     {
         mDestination = destination;
         mUrl = url;
+        A=c;
 
-//        ViewGroup parent = (ViewGroup) destination.getParent();
+
         mFakeForError = new ImageView(context);
         destination.setVisibility(View.GONE);
         FrameLayout layout = new FrameLayout(context);
@@ -88,11 +94,10 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap>
         mProgressBar.setLayoutParams(params);
         FrameLayout.LayoutParams copy = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         copy.gravity = Gravity.CENTER;
-        copy.width = dpToPx(48);
-        copy.height = dpToPx(48);
+        copy.width = dpToPx(160);
+        copy.height = dpToPx(285);
         mFakeForError.setLayoutParams(copy);
         mFakeForError.setVisibility(View.GONE);
-        mFakeForError.setBackgroundResource(R.drawable.nopic);
         layout.addView(mProgressBar);
         layout.addView(mFakeForError);
         mProgressBar.setIndeterminate(true);
@@ -126,10 +131,17 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap>
             mDestination.setImageBitmap(result);
             isBitmapSet = true;
             mDestination.startAnimation(in);
+
         } else {
-            mFakeForError.startAnimation(in);
+
+
+            mDestination.setVisibility(View.VISIBLE);
+            mDestination.setBackgroundResource(R.drawable.nopic);
+
         }
         mProgressBar.startAnimation(out);
+        mProgressBar.setVisibility(View.GONE);
+        mFakeForError.setVisibility(View.GONE);
     }
     public int dpToPx(int dp) {
         DisplayMetrics displayMetrics = mDestination.getContext().getResources().getDisplayMetrics();
