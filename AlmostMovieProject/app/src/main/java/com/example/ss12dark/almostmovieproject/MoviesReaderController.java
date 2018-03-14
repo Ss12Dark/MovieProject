@@ -8,54 +8,54 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
-// Class for reading server data:
+
 public class MoviesReaderController extends MovieController {
 
-    // ctor:
+
     public MoviesReaderController(Activity activity) {
         super(activity);
     }
 
-    // Read all countries from the server:
-    public void readAllCountries() {
+
+    public void readAllMovies() {
         HttpRequest httpRequest = new HttpRequest(this);
-        httpRequest.execute("https://restcountries.eu/rest/v2/all?fields=name");
+        httpRequest.execute("http://api.themoviedb.org/3/search/movie?query=taken&api_key=0dfa979f5f5b49d638840ce5b53339c1");
     }
 
-    // Got all candies from the server - update all in the ListView:
+
     public void onSuccess(String downloadedText) {
 
         try {
 
-            // Translate all to a JSON array:
+
             JSONArray jsonArray = new JSONArray(downloadedText);
 
-            // Create a new array list to hold all candies:
-            countries = new ArrayList<>();
 
-            // Run on all JSON objects:
+            Movies = new ArrayList<>();
+
+
             for (int i = 0; i < jsonArray.length(); i++) {
 
-                // Convert each candy from a JSON object into a Candy object:
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String name = jsonObject.getString("name");
-                String country =name;
 
-                // Add the candy object into the candies array:
-                countries.add(country);
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String name = jsonObject.getString("title");
+                String movie =name;
+
+
+                Movies.add(movie);
             }
 
-            // Set adapter for the ListView:
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, countries);
 
-            // Display all:
-            listViewCountries.setAdapter(adapter);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, Movies);
+
+
+            listViewMovies.setAdapter(adapter);
         }
         catch (JSONException ex) {
             Toast.makeText(activity, "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
         }
 
-        // Dismiss dialog:
+
         progressDialog.dismiss();
     }
 }

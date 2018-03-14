@@ -21,7 +21,7 @@ public class AddFromInternet extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add_from_internet);
 
         // Take UI components:
         listViewCandies = (ListView) findViewById(R.id.listView);
@@ -30,7 +30,7 @@ public class AddFromInternet extends AppCompatActivity {
         candiesReaderController = new MoviesReaderController(this);
 
         // Show all countries from server:
-        candiesReaderController.readAllCountries();
+        candiesReaderController.readAllMovies();
     }
 
 
