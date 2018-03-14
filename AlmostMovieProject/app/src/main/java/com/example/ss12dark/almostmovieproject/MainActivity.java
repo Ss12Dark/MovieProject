@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 String s = names.get(i).getSubject();
                 String u = names.get(i).getUrl();
                 String d = names.get(i).getBody();
-                int id = names.get(i).get_id();
+                int id =names.get(i).get_id();
                 makeMovie(s,d,u,id);
 
                     i++;
@@ -75,50 +76,66 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void makeMovie(String str,String description , String url,int id){
-        ImageView b = new ImageView(this);
-        TextView tv = new TextView(this);
+    public void makeMovie(String name,String description , String url,int id){
+        ImageView image = new ImageView(this);
+        TextView title = new TextView(this);
         TextView des = new TextView(this);
         LinearLayout ll = new LinearLayout(this);
         LinearLayout llinside = new LinearLayout(this);
+//        ScrollView scroll = new ScrollView(this);
+//        resizeScroll(scroll);
         resizeLinearLayoutinside(llinside);
         resizeTextDes(des);
         resizeLinearLayout(ll);
-        resizeImageView(b);
-        resizeTextView(tv);
-        addPicture(b,url);
-        tv.setText(str);
+        resizeImageView(image);
+        resizeTextView(title);
+        addPicture(image,url);
+        title.setText(name);
         des.setText(description);
-        final CustomDialogClass cdd=new CustomDialogClass(MainActivity.this,id);
-        b.setOnLongClickListener(new View.OnLongClickListener() {
+        final CustomDialogClass cdd=new CustomDialogClass(MainActivity.this,name,id);
+        image.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-
-
                 cdd.show();
                 return false;
             }
         });
-        ll.addView(des);
-        ll.addView(b);
-        ll.addView(tv);
+        llinside.addView(title);
+        llinside.addView(des);
+//        scroll.addView(llinside);
+        ll.addView(image);
+        ll.addView(llinside);
         l.addView(ll);
     }
+//
+//    public void resizeScroll(ScrollView sv){
+//        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//        sv.setLayoutParams(positionRules);
+//        float w =translateDP(190);
+//        float h =translateDP(285);
+//        float m =translateDP(10);
+//        int width=(int)w;
+//        int hight =(int)h;
+//        int mergin = (int)m;
+//        positionRules.setMargins(mergin, mergin, mergin, mergin);
+//        sv.setLayoutParams(positionRules);
+//        sv.getLayoutParams().height = hight;
+//        sv.getLayoutParams().width = width;
+//
+//    }
 
     public void resizeLinearLayoutinside(LinearLayout ll){
-        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setLayoutParams(positionRules);
         float w =translateDP(190);
         float h =translateDP(285);
-        float m =translateDP(10);
         int width=(int)w;
         int hight =(int)h;
-        int mergin = (int)m;
-        positionRules.setMargins(mergin, mergin, mergin, mergin);
         ll.setLayoutParams(positionRules);
         ll.getLayoutParams().height = hight;
         ll.getLayoutParams().width = width;
-        ll.setBackgroundResource(R.drawable.layoutstyle);
+        ll.setOrientation(LinearLayout.VERTICAL);
+
 
     }
 

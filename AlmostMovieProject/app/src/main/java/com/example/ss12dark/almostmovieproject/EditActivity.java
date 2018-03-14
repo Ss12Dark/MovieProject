@@ -22,7 +22,9 @@ public class EditActivity extends AppCompatActivity {
     EditText url1;
     LinearLayout l;
     ImageView imageView;
-    int id=-1;
+    int ID;
+    int check;
+    MyDBHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +35,25 @@ public class EditActivity extends AppCompatActivity {
         description = (EditText) findViewById(R.id.description);
         url1 = (EditText) findViewById(R.id.url);
         l = (LinearLayout) findViewById(R.id.outside);
-
+        db = new MyDBHandler(this);
         Intent A = getIntent();
         Bundle b = A.getExtras();
         if(b!=null)
         {
-            String n =(String) b.get("name");
+
+            String NAME =(String) b.get("name");
             String d =(String) b.get("des");
             String u =(String) b.get("url");
-            id=-1;
-            id =(int) b.get("id");
+            int id = (int) b.get("id");
+            ID=id;
 
-            title.setText(n);
+            if(NAME==null){
+                check=0;
+            }else{
+                check=-1;
+            }
+
+            title.setText(NAME);
             description.setText(d);
             url1.setText(u);
 
@@ -53,23 +62,36 @@ public class EditActivity extends AppCompatActivity {
 
     public void ok(View v){
         MyDBHandler db = new MyDBHandler(this);
-        if(id!=-1){
-            db.deleteMovie(id);
+        if(check==-1){
+            db.deleteMovie(ID);
         }
         Intent returnIntent = new Intent();
         String name = title.getText().toString();
-        String des = description.getText().toString();
-        String url = url1.getText().toString();
-        if(name.equals("")){
-            Toast.makeText(this,"Movie Title/name has to be filled",Toast.LENGTH_SHORT).show();
-        }else {
-
-            returnIntent.putExtra("name", name);
-            returnIntent.putExtra("des", des);
-            returnIntent.putExtra("url", url);
-            setResult(Activity.RESULT_OK, returnIntent);
-            finish();
+        List<Movie> m =db.getAllMovieList();
+        boolean nameExist = true;
+        for(int i=0;i<m.size();i++){
+            if(name.equals(m.get(i).getSubject())) {
+                nameExist = false;
+            }
         }
+        if(nameExist) {
+            String des = description.getText().toString();
+            String url = url1.getText().toString();
+            if (name.equals("")) {
+                Toast.makeText(this, "Movie Title/name has to be filled", Toast.LENGTH_SHORT).show();
+            } else {
+
+                returnIntent.putExtra("name", name);
+                returnIntent.putExtra("des", des);
+                returnIntent.putExtra("url", url);
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+            }
+        }else{
+            Toast.makeText(this,"the movie title is already existed",Toast.LENGTH_SHORT).show();
+        }
+
+
     }
     public void cancel(View v){
         Intent returnIntent = new Intent();
@@ -77,7 +99,7 @@ public class EditActivity extends AppCompatActivity {
         finish();
     }
     public void show(View v){
-        //TODO: when pressed show and there are an error. it will show small icon- need fix
+
         String url = url1.getText().toString();
         new DownloadImageTask(this,l,this, imageView, url).execute();
     }

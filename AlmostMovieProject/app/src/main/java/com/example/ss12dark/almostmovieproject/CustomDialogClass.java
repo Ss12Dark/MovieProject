@@ -19,13 +19,15 @@ public class CustomDialogClass extends Dialog implements
     public Activity c;
     public Dialog d;
     public Button delete, edit;
-    public int id;
+    public String NAME;
+    public int ID;
     MyDBHandler db;
     List<Movie> names;
 
-    public CustomDialogClass(Activity a,int ID) {
+    public CustomDialogClass(Activity a,String name,int id) {
         super(a);
-        id=ID;
+        NAME=name;
+        ID=id;
         this.c = a;
 
     }
@@ -48,21 +50,29 @@ public class CustomDialogClass extends Dialog implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_delete:
-                db.deleteMovie(id);
+                db.deleteMovie(ID);
                 c.recreate();
                 break;
             case R.id.btn_edit:
-                String title =names.get(id-1).getSubject();
-                String des =names.get(id-1).getBody();
-                String url =names.get(id-1).getUrl();
+                int i=0;
+                for(i=0;i<names.size();i++){
+                    if(NAME.equals(names.get(i).getSubject())){
+                        String title =names.get(i).getSubject();
+                        String des =names.get(i).getBody();
+                        String url =names.get(i).getUrl();
+                        int id = names.get(i).get_id();
 
-                Intent editActivity = new Intent(c,EditActivity.class);
-                editActivity.putExtra("name",title);
-                editActivity.putExtra("des",des);
-                editActivity.putExtra("url",url);
-                editActivity.putExtra("id",id);
-                c.startActivityForResult(editActivity,1);
-                break;
+                        Intent editActivity = new Intent(c,EditActivity.class);
+                        editActivity.putExtra("name",title);
+                        editActivity.putExtra("des",des);
+                        editActivity.putExtra("url",url);
+                        editActivity.putExtra("id",id);
+                        c.startActivityForResult(editActivity,1);
+                        break;
+                    }
+            }
+
+
             default:
                 break;
         }
