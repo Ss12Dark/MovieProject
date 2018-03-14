@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     int i;
     LinearLayout l;
     boolean next;
+    List<Movie> names;
+    String tempTitle;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadMovie(){
-        List<Movie> names =db.getAllMovieList();
+        names =db.getAllMovieList();
         i =0;
             if (names.size() == i) {
                 TextView empty = (TextView) findViewById(R.id.showAll);
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 while(i<names.size()) {
                 String s = names.get(i).getSubject();
+                tempTitle =s;
                 String u = names.get(i).getUrl();
                 String d = names.get(i).getBody();
                 int id =names.get(i).get_id();
@@ -90,9 +93,16 @@ public class MainActivity extends AppCompatActivity {
         resizeImageView(image);
         resizeTextView(title);
         addPicture(image,url);
+        image.setTag(name);
         title.setText(name);
         des.setText(description);
         final CustomDialogClass cdd=new CustomDialogClass(MainActivity.this,name,id);
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToEdit(view);
+            }
+        });
         image.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -106,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
         ll.addView(image);
         ll.addView(llinside);
         l.addView(ll);
-    }
-//
+        //
 //    public void resizeScroll(ScrollView sv){
 //        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 //        sv.setLayoutParams(positionRules);
@@ -122,7 +131,9 @@ public class MainActivity extends AppCompatActivity {
 //        sv.getLayoutParams().height = hight;
 //        sv.getLayoutParams().width = width;
 //
-//    }
+
+
+    }
 
     public void resizeLinearLayoutinside(LinearLayout ll){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -238,6 +249,27 @@ public class MainActivity extends AppCompatActivity {
         return pixels;
     }
 
+    public void goToEdit(View v){
+        String movieTitle = v.getTag().toString();
+
+        for(i=0;i<names.size();i++){
+            if(movieTitle.equals(names.get(i).getSubject())){
+                String title =names.get(i).getSubject();
+                String des =names.get(i).getBody();
+                String url =names.get(i).getUrl();
+                int id = names.get(i).get_id();
+
+                Intent editActivity = new Intent(this,EditActivity.class);
+                editActivity.putExtra("name",title);
+                editActivity.putExtra("des",des);
+                editActivity.putExtra("url",url);
+                editActivity.putExtra("id",id);
+                this.startActivityForResult(editActivity,1);
+
+            }
+        }
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
@@ -256,7 +288,8 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.addInternet:
-
+                Intent net = new Intent(this,AddFromInternet.class);
+                startActivity(net);
                 return true;
             case R.id.addManuall:
                 Intent add = new Intent(this,EditActivity.class);
