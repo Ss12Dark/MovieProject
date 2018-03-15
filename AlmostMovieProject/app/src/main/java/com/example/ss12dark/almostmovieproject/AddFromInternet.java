@@ -30,7 +30,7 @@ public class AddFromInternet extends AppCompatActivity {
         candiesReaderController = new MoviesReaderController(this);
 
         // Show all countries from server:
-        candiesReaderController.readAllCountries();
+        candiesReaderController.readAllMovies();
     }
 
 
