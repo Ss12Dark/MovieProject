@@ -13,4 +13,8 @@
     <string name="do_you_want_to_edit_the_movie_or_to_delete_it">Do you want to edit the movie or to delete it?</string>
     <string name="go">GO</string>
     <string name="search">search</string>
+    <string name="add_by_internet">Add by internet</string>
+    <string name="add_by_yourself">Add by yourself</string>
+    <string name="exit">Exit</string>
+    <string name="delete_all">Delete all</string>
 </resources>

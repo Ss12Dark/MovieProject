@@ -2,6 +2,7 @@ package com.example.ss12dark.almostmovieproject;
 
 import android.app.Activity;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +20,7 @@ public class MoviesReaderController extends MovieController {
 
     public void readAllMovies() {
         HttpRequest httpRequest = new HttpRequest(this);
-        httpRequest.execute("http://api.themoviedb.org/3/search/movie?query=taken&api_key=0dfa979f5f5b49d638840ce5b53339c1");
+        httpRequest.execute("https://restcountries.eu/rest/v2/all?fields=name");
     }
 
 
@@ -38,7 +39,7 @@ public class MoviesReaderController extends MovieController {
 
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String name = jsonObject.getString("title");
+                String name = jsonObject.getString("name");
                 String movie =name;
 
 

@@ -68,7 +68,7 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
             String oneLine = bufferedReader.readLine();
 
             while (oneLine != null) {
-                downloadedText += oneLine + "\n";
+                downloadedText += oneLine + " ";
                 oneLine = bufferedReader.readLine();
             }
 

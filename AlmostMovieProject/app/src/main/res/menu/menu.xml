@@ -15,11 +15,11 @@
         <menu>
             <item
                 android:id="@+id/addInternet"
-                android:title="Add by intenet" />
+                android:title="@string/add_by_internet" />
 
             <item
                 android:id="@+id/addManuall"
-                android:title="Add by yourself" />
+                android:title="@string/add_by_yourself" />
 
 
         </menu>
@@ -38,11 +38,11 @@
         <menu>
             <item
                 android:id="@+id/exit"
-                android:title="Exit" />
+                android:title="@string/exit" />
 
             <item
                 android:id="@+id/deleteAll"
-                android:title="Delete all" />
+                android:title="@string/delete_all" />
 
 
         </menu>
