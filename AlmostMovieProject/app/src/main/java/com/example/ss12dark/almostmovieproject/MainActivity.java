@@ -13,8 +13,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import java.util.List;
 
@@ -69,24 +71,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void makeMovie(String name,String description , String url,int id){
+    public void makeMovie(String name,String description , String url,int id) {
+
         ImageView image = new ImageView(this);
         TextView title = new TextView(this);
         TextView des = new TextView(this);
         LinearLayout ll = new LinearLayout(this);
         LinearLayout llinside = new LinearLayout(this);
-//        ScrollView scroll = new ScrollView(this);
-//        resizeScroll(scroll);
+        Button button = new Button(this);
+
+        resizeButton(button);
         resizeLinearLayoutinside(llinside);
         resizeTextDes(des);
         resizeLinearLayout(ll);
         resizeImageView(image);
         resizeTextView(title);
-        addPicture(image,url);
+
+        addPicture(image, url);
+
         image.setTag(name);
+        button.setTag(name);
+
+        button.setText(R.string.gotopage);
+        button.setTextSize(13);
         title.setText(name);
         des.setText(description);
-        final CustomDialogClass cdd=new CustomDialogClass(MainActivity.this,name,id);
+
+        final CustomDialogClass cdd = new CustomDialogClass(MainActivity.this, name, id);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,98 +111,62 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         llinside.addView(title);
         llinside.addView(des);
-//        scroll.addView(llinside);
+        llinside.addView(button);
+
         ll.addView(image);
         ll.addView(llinside);
+
         l.addView(ll);
-        //
-//    public void resizeScroll(ScrollView sv){
-//        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        sv.setLayoutParams(positionRules);
-//        float w =translateDP(190);
-//        float h =translateDP(285);
-//        float m =translateDP(10);
-//        int width=(int)w;
-//        int hight =(int)h;
-//        int mergin = (int)m;
-//        positionRules.setMargins(mergin, mergin, mergin, mergin);
-//        sv.setLayoutParams(positionRules);
-//        sv.getLayoutParams().height = hight;
-//        sv.getLayoutParams().width = width;
-//
-
-
+    }
+    public void resizeButton(Button sv){
+        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        sv.setLayoutParams(positionRules);
+        positionRules.setMargins(10, 10, 10, 10);
     }
 
     public void resizeLinearLayoutinside(LinearLayout ll){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setLayoutParams(positionRules);
-        float w =translateDP(190);
-        float h =translateDP(285);
-        int width=(int)w;
-        int hight =(int)h;
-        ll.setLayoutParams(positionRules);
-        ll.getLayoutParams().height = hight;
-        ll.getLayoutParams().width = width;
+        ll.getLayoutParams().height = 880;
+        positionRules.setMargins(25,0, 0, 5);
         ll.setOrientation(LinearLayout.VERTICAL);
-
-
     }
 
     public void resizeTextDes(TextView des){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         des.setLayoutParams(positionRules);
-        float m =translateDP(5);
         des.setTextColor(Color.BLACK);
-        int mergin = (int)m;
-        float TextSize =translateDP(5);
-        des.setTextSize(TextSize);
-        positionRules.setMargins(mergin,mergin, mergin, mergin);
-        des.setLayoutParams(positionRules);
+        des.setTextSize(13);
+        positionRules.setMargins(5,5, 5, 5);
+        des.getLayoutParams().height = 500;
     }
 
     public  void resizeLinearLayout(LinearLayout ll){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setLayoutParams(positionRules);
-        float h =translateDP(320);
-        float m =translateDP(15);
-        int hight =(int)h;
-        int mergin = (int)m;
-        positionRules.setMargins(mergin, mergin, mergin, mergin);
+        positionRules.setMargins(25, 25, 25, 25);
         ll.setLayoutParams(positionRules);
-        ll.getLayoutParams().height = hight;
+        ll.getLayoutParams().height = 900;
         ll.setBackgroundResource(R.drawable.layoutstyle);
     }
 
     public void resizeTextView(TextView b){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         b.setLayoutParams(positionRules);
-        float m =translateDP(15);
         b.setTextColor(Color.BLACK);
-        int mergin = (int)m;
-        float TextSize =translateDP(10);
-        b.setTextSize(TextSize);
-        positionRules.setMargins(mergin,0, mergin, mergin);
-        b.setLayoutParams(positionRules);
-
-
+        b.setTextSize(25);
+        positionRules.setMargins(15,0, 15, 15);
     }
 
     public void resizeImageView(ImageView b){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         b.setLayoutParams(positionRules);
-        float w =translateDP(160);
-        float h =translateDP(285);
-        float m =translateDP(15);
-        int width=(int)w;
-        int hight =(int)h;
-        int mergin = (int)m;
-        positionRules.setMargins(mergin, mergin, mergin, 0);
-        b.setLayoutParams(positionRules);
-        b.getLayoutParams().height = hight;
-        b.getLayoutParams().width = width;
+        positionRules.setMargins(15, 15, 25, 0);
+        b.getLayoutParams().height = 800;
+        b.getLayoutParams().width = 400;
     }
 
     public void addPicture(ImageView b,String u) {
@@ -199,45 +174,11 @@ public class MainActivity extends AppCompatActivity {
             b.setBackgroundResource(R.drawable.nopic);
             b.getBackground().setAlpha(150);
         } else {
-
-
-//            try {
-//                try {
-//                    try {
-//                        try {
                                  new DownloadImageTask(this,l,this, b, u).execute();
-
-//                        } catch (URISyntaxException use) {
-//                            Toast.makeText(this, "FATAL error with Syntax", Toast.LENGTH_SHORT).show();
-//                            b.setBackgroundResource(R.drawable.nopic);
-//                            b.getBackground().setAlpha(150);
-//                        }
-//                    } catch (MalformedURLException mue) {
-//                        Toast.makeText(this, "FATAL error with image URL", Toast.LENGTH_SHORT).show();
-//                        b.setBackgroundResource(R.drawable.nopic);
-//                        b.getBackground().setAlpha(150);
-//                    }
-//                } catch (IOException ioe) {
-//                    Toast.makeText(this, "FATAL error with image IO", Toast.LENGTH_SHORT).show();
-//                    b.setBackgroundResource(R.drawable.nopic);
-//                    b.getBackground().setAlpha(150);
-//                }
-//            }catch(Exception e){
-//                Toast.makeText(this, "FATAL error with image loading", Toast.LENGTH_SHORT).show();
-//                b.setBackgroundResource(R.drawable.nopic);
-//                b.getBackground().setAlpha(150);
-//            }
         }
     }
 
-    public float translateDP(float num){
-        // Get device's display metrics:
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-        // Convert 10dp to pixels:
-        float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, num, displayMetrics);
-        return pixels;
-    }
 
     public void goToEdit(View v){
         String movieTitle = v.getTag().toString();
