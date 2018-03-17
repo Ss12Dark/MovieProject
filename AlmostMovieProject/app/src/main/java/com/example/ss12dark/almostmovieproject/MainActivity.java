@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void resizeLinearLayoutinside(LinearLayout ll){
-        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setLayoutParams(positionRules);
         ll.getLayoutParams().height = 880;
         positionRules.setMargins(25,0, 0, 5);

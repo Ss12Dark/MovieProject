@@ -17,12 +17,14 @@
     android:gravity="left|top">
     <TextView
         android:textColor="@color/black"
+        android:background="@drawable/textstyle"
         android:id="@+id/showAll"
         android:layout_marginTop="20sp"
+        android:padding="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/movie_list_are_empty"
-        android:textSize="50sp"
+        android:textSize="25sp"
         android:visibility="gone"
        />
 </LinearLayout>
