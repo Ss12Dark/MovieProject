@@ -1,6 +1,7 @@
 package com.example.ss12dark.almostmovieproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,9 +26,12 @@ public class MainActivity extends AppCompatActivity {
     List<Movie> names;
     String tempTitle;
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        App.setContext(this);
         db = new MyDBHandler(this);
         next = true;
         l = (LinearLayout) findViewById(R.id.linearLayoutMain);

@@ -26,6 +26,7 @@ public class EditActivity extends AppCompatActivity {
     int check;
     MyDBHandler db;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,7 @@ public class EditActivity extends AppCompatActivity {
 
             if(NAME==null){
                 check=0;
+                NAME=(String) b.get("title");
             }else{
                 check=-1;
             }

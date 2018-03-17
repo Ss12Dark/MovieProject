@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class MovieController  implements HttpRequest.Callbacks {
@@ -13,6 +14,7 @@ public abstract class MovieController  implements HttpRequest.Callbacks {
     protected Activity activity;
     protected ProgressDialog progressDialog;
     protected ListView listViewMovies;
+    public List<Movie> allMoviesData;
 
 
     public MovieController(Activity activity) {
