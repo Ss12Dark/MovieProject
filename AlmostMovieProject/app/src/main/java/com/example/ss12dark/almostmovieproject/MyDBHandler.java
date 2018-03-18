@@ -28,6 +28,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
     public static final String KEY_DESCRIPTION= "movieDescription";
     public static final String KEY_URL = "movieURL";
     public static final String KEY_NO = "KeyNo";
+    public static final String KEY_WATCH = "watched";
 
     //We need to pass database information along to superclass because the super class doesn't have any default constructor
 
@@ -45,7 +46,8 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 + KEY_NAME + " TEXT,"
                 + KEY_DESCRIPTION + " TEXT,"
                 + KEY_URL + " TEXT, "
-                + KEY_NO + " TEXT"+ ")";
+                + KEY_NO + " TEXT, "
+                + KEY_WATCH + " TEXT"+")";
 
         db.execSQL(query);
     }
@@ -96,7 +98,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
 
     public List<Movie> getAllMovieList() {
-
+//TODO: to use the watch collum and to check it in start
 
         List<Movie> MovieList = new ArrayList<Movie>();
 

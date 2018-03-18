@@ -13,6 +13,7 @@ public class Movie {
     private String body;
     private String url;
     private int No;
+    private boolean watched =false;
 
     public Movie(){}
 
@@ -70,6 +71,14 @@ public class Movie {
 
     public int getNo() {
         return No;
+    }
+
+    public boolean isWatched() {
+        return watched;
+    }
+
+    public void setWatched(boolean watched) {
+        this.watched = watched;
     }
 
     public void setNo(int no) {

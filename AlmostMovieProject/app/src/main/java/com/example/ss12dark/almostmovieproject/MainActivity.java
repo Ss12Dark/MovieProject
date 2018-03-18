@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         des.getLayoutParams().height = 500;
     }
 
-    public  void resizeLinearLayout(LinearLayout ll){
+    public void resizeLinearLayout(LinearLayout ll){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setLayoutParams(positionRules);
         positionRules.setMargins(25, 25, 25, 25);
