@@ -50,11 +50,12 @@ public Activity contex;
 
 
                 JSONObject jsonObject = resultArray.getJSONObject(i);
+                int No = jsonObject.getInt("id");
                 String name = jsonObject.getString("title");
                 String desc = jsonObject.getString("overview");
                 String image = jsonObject.getString("poster_path");
 
-                Movie movie = new Movie(name,desc,image);
+                Movie movie = new Movie(name,desc,image,No);
                 tempList.add(i,movie);
 
 

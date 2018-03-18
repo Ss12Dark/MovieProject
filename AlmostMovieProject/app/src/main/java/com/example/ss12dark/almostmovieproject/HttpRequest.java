@@ -1,5 +1,6 @@
 package com.example.ss12dark.almostmovieproject;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
 import java.io.BufferedReader;

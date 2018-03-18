@@ -18,4 +18,5 @@
     <string name="exit">Exit</string>
     <string name="delete_all">Delete all</string>
     <string name="gotopage">Go To Page</string>
+    <string name="moviepage">Movie Page</string>
 </resources>

@@ -25,6 +25,7 @@ public class EditActivity extends AppCompatActivity {
     int ID;
     int check;
     MyDBHandler db;
+    int No=0;
 
 
     @Override
@@ -48,12 +49,17 @@ public class EditActivity extends AppCompatActivity {
             int id = (int) b.get("id");
             ID=id;
 
+            if(null!=b.get("No")){
+                No = (int) b.get("No");
+            }
+
             if(NAME==null){
                 check=0;
                 NAME=(String) b.get("title");
             }else{
                 check=-1;
             }
+
 
             title.setText(NAME);
             description.setText(d);
@@ -82,11 +88,12 @@ public class EditActivity extends AppCompatActivity {
             if (name.equals("")) {
                 Toast.makeText(this, "Movie Title/name has to be filled", Toast.LENGTH_SHORT).show();
             } else {
-
+                returnIntent.putExtra("No", No);
                 returnIntent.putExtra("name", name);
                 returnIntent.putExtra("des", des);
                 returnIntent.putExtra("url", url);
                 setResult(Activity.RESULT_OK, returnIntent);
+                No=0;
                 finish();
             }
         }else{

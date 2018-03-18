@@ -7,7 +7,7 @@
 
             <gradient
                 android:startColor="@color/halfGreen"
-                android:centerColor="@color/halfWhite"
+                android:centerColor="@color/halfWhite1"
                 android:endColor="@color/halfRed"
                 android:angle="45" />
 

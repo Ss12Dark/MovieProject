@@ -12,6 +12,7 @@ public class Movie {
     private String subject;
     private String body;
     private String url;
+    private int No;
 
     public Movie(){}
 
@@ -38,6 +39,41 @@ public class Movie {
 
         this.subject = subject;
 
+    }
+    public  Movie(int id, String subject , String body , String url,int No){
+        this._id = id;
+        this.subject = subject;
+        this.body = body;
+        this.url = url;
+        this.No = No;
+    }
+
+    public  Movie(String subject , String body , String url,int No){
+        this.subject = subject;
+        this.body = body;
+        this.url = url;
+        this.No = No;
+    }
+
+    public  Movie(String subject , String body,int No){
+        this.subject = subject;
+        this.body = body;
+        this.No = No;
+    }
+
+    public  Movie(String subject,int No ){
+
+        this.subject = subject;
+        this.No = No;
+
+    }
+
+    public int getNo() {
+        return No;
+    }
+
+    public void setNo(int no) {
+        No = no;
     }
 
     public int get_id() {

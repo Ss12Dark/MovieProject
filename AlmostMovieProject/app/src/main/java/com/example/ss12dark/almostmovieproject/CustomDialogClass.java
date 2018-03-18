@@ -61,8 +61,10 @@ public class CustomDialogClass extends Dialog implements
                         String des =names.get(i).getBody();
                         String url =names.get(i).getUrl();
                         int id = names.get(i).get_id();
+                        int No = names.get(i).getNo();
 
                         Intent editActivity = new Intent(c,EditActivity.class);
+                        editActivity.putExtra("No",No);
                         editActivity.putExtra("name",title);
                         editActivity.putExtra("des",des);
                         editActivity.putExtra("url",url);

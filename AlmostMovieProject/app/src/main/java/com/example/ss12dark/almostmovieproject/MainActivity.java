@@ -64,21 +64,22 @@ public class MainActivity extends AppCompatActivity {
                 String u = names.get(i).getUrl();
                 String d = names.get(i).getBody();
                 int id =names.get(i).get_id();
-                makeMovie(s,d,u,id);
+                int No = names.get(i).getNo();
+                makeMovie(s,d,u,id,No);
 
                     i++;
             }
         }
     }
 
-    public void makeMovie(String name,String description , String url,int id) {
+    public void makeMovie(String name,String description , String url,int id,int No) {
 
         ImageView image = new ImageView(this);
         TextView title = new TextView(this);
         TextView des = new TextView(this);
         LinearLayout ll = new LinearLayout(this);
         LinearLayout llinside = new LinearLayout(this);
-        Button button = new Button(this);
+        final Button button = new Button(this);
 
         resizeButton(button);
         resizeLinearLayoutinside(llinside);
@@ -90,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
         addPicture(image, url);
 
         image.setTag(name);
-        button.setTag(name);
+        button.setTag(No);
 
-        button.setText(R.string.gotopage);
+        button.setText(R.string.moviepage);
         button.setTextSize(13);
         title.setText(name);
         des.setText(description);
@@ -109,6 +110,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onLongClick(View view) {
                 cdd.show();
                 return false;
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int No = (int)button.getTag();
+                goToMoviePage(No);
             }
         });
 
@@ -138,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
     public void resizeTextDes(TextView des){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         des.setLayoutParams(positionRules);
-        des.setTextColor(Color.BLACK);
+        des.setTextColor(Color.WHITE);
         des.setTextSize(13);
         positionRules.setMargins(5,5, 5, 5);
         des.getLayoutParams().height = 500;
@@ -156,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     public void resizeTextView(TextView b){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         b.setLayoutParams(positionRules);
-        b.setTextColor(Color.BLACK);
+        b.setTextColor(Color.WHITE);
         b.setTextSize(25);
         positionRules.setMargins(15,0, 15, 15);
     }
@@ -178,7 +187,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    public void goToMoviePage(int No){
+        Intent moviePage = new Intent(this,MoviePage.class);
+        moviePage.putExtra("No",No);
+        startActivity(moviePage);
+    }
 
     public void goToEdit(View v){
         String movieTitle = v.getTag().toString();
@@ -244,24 +257,24 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-
+                int No=data.getIntExtra("No",0);
                 String name=data.getStringExtra("name");
                 String des=data.getStringExtra("des");
                 String url1=data.getStringExtra("url");
 
                 if(des.equals("")) {
                     if ( url1.equals("")) {
-                        Movie movie = new Movie(name,"","");
+                        Movie movie = new Movie(name,"","",No);
                         db.addMovie(movie);
                     } else {
-                        Movie movie = new Movie(name, "", url1);
+                        Movie movie = new Movie(name, "", url1,No);
                         db.addMovie(movie);
                     }
                 }else if(url1.equals("")){
-                        Movie movie = new Movie(name,des,"");
+                        Movie movie = new Movie(name,des,"",No);
                     db.addMovie(movie);
                 }else{
-                    Movie movie = new Movie(name,des,url1);
+                    Movie movie = new Movie(name,des,url1,No);
                     db.addMovie(movie);
                 }
 

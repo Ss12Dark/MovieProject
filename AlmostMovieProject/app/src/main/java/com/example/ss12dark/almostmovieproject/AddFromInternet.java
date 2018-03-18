@@ -56,8 +56,10 @@ public class AddFromInternet extends AppCompatActivity {
                 if(i==j){
                     String description = tempMovies.get(j).getBody();
                     String imageUrl = baseImageUrl + tempMovies.get(j).getUrl();
+                    int No = tempMovies.get(j).getNo();
 
                     Intent editActivity = new Intent(this,EditActivity.class);
+                    editActivity.putExtra("No",No);
                     editActivity.putExtra("title",tempName);
                     editActivity.putExtra("des",description);
                     editActivity.putExtra("url",imageUrl);

@@ -27,7 +27,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
     public static final String KEY_NAME = "movieName";
     public static final String KEY_DESCRIPTION= "movieDescription";
     public static final String KEY_URL = "movieURL";
-
+    public static final String KEY_NO = "KeyNo";
 
     //We need to pass database information along to superclass because the super class doesn't have any default constructor
 
@@ -44,7 +44,8 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_NAME + " TEXT,"
                 + KEY_DESCRIPTION + " TEXT,"
-                + KEY_URL + " TEXT " + ")";
+                + KEY_URL + " TEXT, "
+                + KEY_NO + " TEXT"+ ")";
 
         db.execSQL(query);
     }
@@ -77,6 +78,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(KEY_NAME, movie.getSubject());
         values.put(KEY_DESCRIPTION, movie.getBody());
         values.put(KEY_URL, movie.getUrl());
+        values.put(KEY_NO, movie.getNo());
 
 
         db.insert(TABLE_MOVIES, null, values);
@@ -113,6 +115,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 movie.setSubject(cursor.getString(1));
                 movie.setBody(cursor.getString(2));
                 movie.setUrl(cursor.getString(3));
+                movie.setNo(Integer.parseInt(cursor.getString(4)));
 
                 // Adding contact to list
                 MovieList.add(movie);
