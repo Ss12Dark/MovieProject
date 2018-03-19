@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebHistoryItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     List<Movie> names;
     String tempTitle;
 
+    int watchNum;
+    TextView watchView;
+    Button watchButton;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,36 +70,43 @@ public class MainActivity extends AppCompatActivity {
                 String d = names.get(i).getBody();
                 int id =names.get(i).get_id();
                 int No = names.get(i).getNo();
-                makeMovie(s,d,u,id,No);
+                int watched = names.get(i).getWatched();
+                makeMovie(s,d,u,id,No,watched);
 
                     i++;
             }
         }
     }
 
-    public void makeMovie(String name,String description , String url,int id,int No) {
+    public void makeMovie(String name,String description , String url,int id,int No,int watched) {
 
         ImageView image = new ImageView(this);
         TextView title = new TextView(this);
         TextView des = new TextView(this);
+        TextView watchNumberTextView = new TextView(this);
         LinearLayout ll = new LinearLayout(this);
         LinearLayout llinside = new LinearLayout(this);
-        final Button button = new Button(this);
+        LinearLayout llimageInside = new LinearLayout(this);
+        final Button goPageButton = new Button(this);
+        Button watchButton = new Button(this);
 
-        resizeButton(button);
+        resizeLinearLayoutimageInside(llimageInside);
+        resizeButton(goPageButton);
         resizeLinearLayoutinside(llinside);
         resizeTextDes(des);
         resizeLinearLayout(ll);
         resizeImageView(image);
         resizeTextView(title);
 
+        watchButton.setTag(id);
+        setAddWatch(watchButton,watched,watchNumberTextView);
         addPicture(image, url);
 
         image.setTag(name);
-        button.setTag(No);
+        goPageButton.setTag(No);
 
-        button.setText(R.string.moviepage);
-        button.setTextSize(13);
+        goPageButton.setText(R.string.moviepage);
+        goPageButton.setTextSize(13);
         title.setText(name);
         des.setText(description);
 
@@ -113,35 +125,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
+        goPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int No = (int)button.getTag();
+                int No = (int)goPageButton.getTag();
                 goToMoviePage(No);
             }
         });
 
         llinside.addView(title);
         llinside.addView(des);
-        llinside.addView(button);
+        if(No!=0) {
+            llinside.addView(goPageButton);
+        }
+        llimageInside.addView(image);
+        llimageInside.addView(watchNumberTextView);
+        llimageInside.addView(watchButton);
 
-        ll.addView(image);
+        ll.addView(llimageInside);
         ll.addView(llinside);
 
         l.addView(ll);
     }
+
     public void resizeButton(Button sv){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         sv.setLayoutParams(positionRules);
         positionRules.setMargins(10, 10, 10, 10);
     }
 
-    public void resizeLinearLayoutinside(LinearLayout ll){
+    public void resizeLinearLayoutimageInside(LinearLayout llimageInside){
+        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llimageInside.setLayoutParams(positionRules);
+        llimageInside.setGravity(Gravity.CENTER);
+        llimageInside.setOrientation(LinearLayout.VERTICAL);
+    }
+
+    public void resizeLinearLayoutinside(LinearLayout llinside){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.setLayoutParams(positionRules);
-        ll.getLayoutParams().height = 880;
+        llinside.setLayoutParams(positionRules);
+        llinside.getLayoutParams().height = 880;
         positionRules.setMargins(25,0, 0, 5);
-        ll.setOrientation(LinearLayout.VERTICAL);
+        llinside.setOrientation(LinearLayout.VERTICAL);
     }
 
     public void resizeTextDes(TextView des){
@@ -170,12 +195,87 @@ public class MainActivity extends AppCompatActivity {
         positionRules.setMargins(15,0, 15, 15);
     }
 
+    public void resizeTextViewWatchNumber(TextView b){
+        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        b.setLayoutParams(positionRules);
+        b.setTextSize(25);
+        b.setTextColor(Color.WHITE);
+
+    }
+
+    public void resizeWatchButton(Button sv){
+        LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        sv.setLayoutParams(positionRules);
+        sv.getLayoutParams().height = 80;
+        sv.getLayoutParams().width = 80;
+        sv.setBackground(getDrawable(R.drawable.eye));
+    }
+
     public void resizeImageView(ImageView b){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         b.setLayoutParams(positionRules);
         positionRules.setMargins(15, 15, 25, 0);
-        b.getLayoutParams().height = 800;
+        b.getLayoutParams().height = 710;
         b.getLayoutParams().width = 400;
+    }
+
+    public void setAddWatch(final Button b ,int watched,final TextView watchNumberTextView){
+
+        resizeTextViewWatchNumber(watchNumberTextView);
+        resizeWatchButton(b);
+        if(watched!=0){
+            b.setBackground(getDrawable(R.drawable.eyeopen));
+        }
+        String watchString = watched+"";
+        watchNumberTextView.setText(watchString);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int id = Integer.parseInt(view.getTag().toString());
+                addWatch(b,watchNumberTextView,id);
+
+            }
+        });
+
+        b.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                int id = Integer.parseInt(view.getTag().toString());
+                resetWatch(b,watchNumberTextView,id);
+                return false;
+            }
+        });
+
+    }
+
+    public void addWatch(Button b,TextView watchNumberTextView,int id){
+        int watched=0;
+        for(int p=0;p<names.size();p++){
+            if(id==names.get(p).get_id()){
+                names.get(p).setWatched(names.get(p).getWatched()+1);
+                watched = names.get(p).getWatched();
+                db.updateWatch(id);
+            }
+        }
+        if(watched>0){
+            b.setBackground(getDrawable(R.drawable.eyeopen));
+        }
+        String watch = watched+"";
+        watchNumberTextView.setText(watch);
+    }
+
+    public void resetWatch(Button b,TextView watchNumberTextView,int id){
+        int watched=0;
+        for(int p=0;p<names.size();p++){
+            if(id==names.get(p).get_id()){
+                names.get(p).setWatched(0);
+                watched = names.get(p).getWatched();
+                db.updateWatch(id);
+            }
+        }
+        b.setBackground(getDrawable(R.drawable.eye));
+        String watch = watched+"";
+        watchNumberTextView.setText(watch);
     }
 
     public void addPicture(ImageView b,String u) {
@@ -265,18 +365,23 @@ public class MainActivity extends AppCompatActivity {
                 if(des.equals("")) {
                     if ( url1.equals("")) {
                         Movie movie = new Movie(name,"","",No);
+                        movie.setWatched(0);
                         db.addMovie(movie);
                     } else {
                         Movie movie = new Movie(name, "", url1,No);
+                        movie.setWatched(0);
                         db.addMovie(movie);
                     }
                 }else if(url1.equals("")){
                         Movie movie = new Movie(name,des,"",No);
+                    movie.setWatched(0);
                     db.addMovie(movie);
                 }else{
                     Movie movie = new Movie(name,des,url1,No);
+                    movie.setWatched(0);
                     db.addMovie(movie);
                 }
+
 
                 this.recreate();
 

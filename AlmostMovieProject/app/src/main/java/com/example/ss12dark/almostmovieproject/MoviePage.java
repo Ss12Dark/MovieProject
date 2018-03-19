@@ -3,6 +3,8 @@ package com.example.ss12dark.almostmovieproject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -14,7 +16,11 @@ import java.io.Serializable;
 public class MoviePage extends AppCompatActivity implements Serializable {
     public FullMoviesReaderController fullMoviesReaderController;
 
+
+
+
     static LinearLayout l;
+    static LinearLayout movieLinear;
     static TextView head;
     static TextView description;
     static ImageView image;
@@ -30,6 +36,7 @@ public class MoviePage extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_page);
+        movieLinear=(LinearLayout) findViewById(R.id.fullMovie);
         fullMoviesReaderController = new FullMoviesReaderController(this);
         Intent i = getIntent();
         int No =i.getIntExtra("No",0);
@@ -57,10 +64,25 @@ public class MoviePage extends AppCompatActivity implements Serializable {
         } else {
             new DownloadImageTask(activity,l,context, image, movie.getUrl()).execute();
         }
-        String voteText = movie.getVote_average()+"";
+        String voteText;
+        if(0==movie.getVote_average()){
+            voteText = "there are no information on this detail";
+        }else {
+            voteText = movie.getVote_average()+"";
+            if(7<movie.getVote_average()){
+                movieLinear.setBackgroundResource(R.drawable.layoutstylegreen);
+            }else{
+                movieLinear.setBackgroundResource(R.drawable.layoutstylered);
+            }
+        }
         vote.setText("Score: "+voteText);
         date.setText("Release Date: "+movie.getRelease_date());
-        String money = movie.getBudget()+"";
+        String money;
+        if(0==movie.getBudget()){
+            money = "there are no information on this detail";
+        }else {
+            money = movie.getBudget() + "";
+        }
         budget.setText("Budget: "+money);
         int hours = movie.getRuntime()/60;
         int minutes = movie.getRuntime()%60;

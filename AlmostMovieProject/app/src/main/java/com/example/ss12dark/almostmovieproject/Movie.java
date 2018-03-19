@@ -13,7 +13,7 @@ public class Movie {
     private String body;
     private String url;
     private int No;
-    private boolean watched =false;
+    private int watched=0;
 
     public Movie(){}
 
@@ -23,6 +23,7 @@ public class Movie {
         this.body = body;
         this.url = url;
     }
+
 
     public  Movie(String subject , String body , String url){
         this.subject = subject;
@@ -36,17 +37,25 @@ public class Movie {
 
     }
 
-    public  Movie(String subject ){
-
+    public  Movie(String subject){
         this.subject = subject;
-
     }
+
     public  Movie(int id, String subject , String body , String url,int No){
         this._id = id;
         this.subject = subject;
         this.body = body;
         this.url = url;
         this.No = No;
+    }
+
+    public  Movie(int id, String subject , String body , String url,int No,int watched){
+        this._id = id;
+        this.subject = subject;
+        this.body = body;
+        this.url = url;
+        this.No = No;
+        this.watched=watched;
     }
 
     public  Movie(String subject , String body , String url,int No){
@@ -69,16 +78,16 @@ public class Movie {
 
     }
 
-    public int getNo() {
-        return No;
-    }
-
-    public boolean isWatched() {
+    public int getWatched() {
         return watched;
     }
 
-    public void setWatched(boolean watched) {
+    public void setWatched(int watched) {
         this.watched = watched;
+    }
+
+    public int getNo() {
+        return No;
     }
 
     public void setNo(int no) {

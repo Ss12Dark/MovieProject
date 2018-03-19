@@ -47,7 +47,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 + KEY_DESCRIPTION + " TEXT,"
                 + KEY_URL + " TEXT, "
                 + KEY_NO + " TEXT, "
-                + KEY_WATCH + " TEXT"+")";
+                + KEY_WATCH + " INTEGER"+")";
 
         db.execSQL(query);
     }
@@ -60,6 +60,17 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
         // Create tables again
         onCreate(db);
+    }
+
+    public void updateWatch(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String str = "UPDATE "+TABLE_MOVIES+" SET "+KEY_WATCH+" = "+KEY_WATCH+" + 1 WHERE "+KEY_ID+" = "+id;
+        db.execSQL(str);
+    }
+    public void resetWatch(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String str = "UPDATE "+TABLE_MOVIES+" SET "+KEY_WATCH+" =  0 WHERE "+KEY_ID+" = "+id;
+        db.execSQL(str);
     }
 
     public void clear() {
@@ -81,6 +92,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(KEY_DESCRIPTION, movie.getBody());
         values.put(KEY_URL, movie.getUrl());
         values.put(KEY_NO, movie.getNo());
+        values.put(KEY_WATCH, movie.getWatched());
 
 
         db.insert(TABLE_MOVIES, null, values);
@@ -118,6 +130,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
                 movie.setBody(cursor.getString(2));
                 movie.setUrl(cursor.getString(3));
                 movie.setNo(Integer.parseInt(cursor.getString(4)));
+                movie.setWatched(Integer.parseInt(cursor.getString(5)));
 
                 // Adding contact to list
                 MovieList.add(movie);
