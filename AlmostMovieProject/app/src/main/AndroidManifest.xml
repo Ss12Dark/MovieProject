@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".EditActivity" />
         <activity android:name=".AddFromInternet" />
-        <activity android:name=".MoviePage"></activity>
+        <activity android:name=".MoviePage"/>
     </application>
 
 </manifest>

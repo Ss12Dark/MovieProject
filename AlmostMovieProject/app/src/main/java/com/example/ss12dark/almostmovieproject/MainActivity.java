@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
     public void resizeLinearLayoutinside(LinearLayout llinside){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llinside.setLayoutParams(positionRules);
-        llinside.getLayoutParams().height = 880;
+        llinside.getLayoutParams().height = 950;
         positionRules.setMargins(25,0, 0, 5);
         llinside.setOrientation(LinearLayout.VERTICAL);
     }
@@ -174,8 +174,8 @@ public class MainActivity extends AppCompatActivity {
         des.setLayoutParams(positionRules);
         des.setTextColor(Color.WHITE);
         des.setTextSize(13);
-        positionRules.setMargins(5,5, 5, 5);
-        des.getLayoutParams().height = 500;
+        positionRules.setMargins(5,5, 5, 0);
+        des.getLayoutParams().height = 425;
     }
 
     public void resizeLinearLayout(LinearLayout ll){
