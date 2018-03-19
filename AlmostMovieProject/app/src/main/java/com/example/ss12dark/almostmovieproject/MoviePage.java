@@ -39,6 +39,8 @@ public class MoviePage extends AppCompatActivity implements Serializable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO: what if there is no data at all- need an Answer.
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_page);
         movieLinear=(LinearLayout) findViewById(R.id.fullMovie);
