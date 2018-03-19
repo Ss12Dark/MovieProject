@@ -19,4 +19,6 @@
     <string name="delete_all">Delete all</string>
     <string name="gotopage">Go To Page</string>
     <string name="moviepage">Movie Page</string>
+    <string name="share">share</string>
+    <string name="shares">Share</string>
 </resources>

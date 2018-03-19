@@ -5,20 +5,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import java.io.Serializable;
 
 public class MoviePage extends AppCompatActivity implements Serializable {
+
     public FullMoviesReaderController fullMoviesReaderController;
-
-
-
-
     static LinearLayout l;
     static LinearLayout movieLinear;
     static TextView head;
@@ -31,6 +34,8 @@ public class MoviePage extends AppCompatActivity implements Serializable {
     static Activity activity;
     static Context context;
 
+    static String movieName;
+    static String movieScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,5 +93,16 @@ public class MoviePage extends AppCompatActivity implements Serializable {
         int minutes = movie.getRuntime()%60;
         runtime.setText("Movie length: "+hours+" hours and "+minutes+" minutes");
 
+        movieName = movie.getSubject().toString();
+        movieScore = movie.getVote_average()+"";
+    }
+
+    public void share(View v){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT,
+                "You just have to see the movie "+movieName+". The movie score is "+movieScore+"!!!");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent.createChooser(sendIntent, getResources().getText(R.string.app_name)));
     }
 }
