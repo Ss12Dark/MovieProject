@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     MyDBHandler db;
@@ -290,6 +291,7 @@ public class MainActivity extends AppCompatActivity {
     public void goToMoviePage(int No){
         Intent moviePage = new Intent(this,MoviePage.class);
         moviePage.putExtra("No",No);
+        moviePage.putExtra("switch",0);
         startActivity(moviePage);
     }
 
@@ -312,6 +314,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    public void random(View v){
+        Intent moviePage = new Intent(this,MoviePage.class);
+        Random rand = new Random();
+        App.setmView(v);
+        int  n = rand.nextInt(68718) + 50;
+        moviePage.putExtra("No",n);
+        moviePage.putExtra("switch",1);
+        startActivity(moviePage);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -15,10 +15,20 @@
     android:orientation="vertical"
     android:layout_height="wrap_content"
     android:gravity="left|top">
+    <Button
+        android:onClick="random"
+        android:background="@drawable/textstyle"
+        android:text="@string/random_movie"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="20sp"
+        android:padding="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <TextView
         android:textColor="@color/black"
         android:background="@drawable/textstyle"
         android:id="@+id/showAll"
+        android:layout_marginStart="75dp"
         android:layout_marginTop="20sp"
         android:padding="5dp"
         android:layout_width="wrap_content"

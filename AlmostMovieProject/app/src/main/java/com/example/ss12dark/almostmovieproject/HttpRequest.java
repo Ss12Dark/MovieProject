@@ -1,8 +1,11 @@
 package com.example.ss12dark.almostmovieproject;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.view.View;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -20,6 +23,9 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
     private Callbacks callbacks;
     private String errorMessage = null;
     private int httpMethod;
+    private MainActivity mContext;
+    private View v;
+
 
     public HttpRequest(Callbacks callbacks) {
         this.callbacks = callbacks;
@@ -58,7 +64,11 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
             int httpStatusCode = connection.getResponseCode();
 
             if (httpStatusCode != HttpURLConnection.HTTP_OK) {
-                errorMessage = connection.getResponseMessage();
+
+                mContext=(MainActivity)App.getContext();
+                v = App.getmView();
+                mContext.random(v);
+                errorMessage = "a second";
                 return null;
             }
 
@@ -77,8 +87,11 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
 
             return downloadedText;
         } catch (IOException ex) {
-            errorMessage = ex.getMessage();
-            return null;
+//            errorMessage = ex.getMessage();
+//            mContext=(MainActivity)App.getContext();
+//            v = App.getmView();
+//            mContext.random(v);
+            return "a second";
         } finally {
             if (bufferedReader != null) try {
                 bufferedReader.close();
@@ -99,6 +112,7 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
         if (errorMessage == null)
             callbacks.onSuccess(downloadedText);
         else
+
             callbacks.onError(errorMessage);
     }
 

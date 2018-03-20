@@ -8,7 +8,7 @@
     <item
         android:id="@+id/menuItemSettings"
         android:icon="@android:drawable/ic_input_add"
-        android:title="addMovie"
+        android:title="@string/addmovie"
         app:showAsAction="always"
 
         >
@@ -31,7 +31,7 @@
     <item
         android:id="@+id/groupColors"
         android:icon="@android:drawable/ic_delete"
-        android:title="setting"
+        android:title="@string/setting"
         app:showAsAction="always"
 
         >

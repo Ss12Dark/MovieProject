@@ -21,4 +21,7 @@
     <string name="moviepage">Movie Page</string>
     <string name="share">share</string>
     <string name="shares">Share</string>
+    <string name="addmovie">addMovie</string>
+    <string name="setting">setting</string>
+    <string name="random_movie">Random Movie</string>
 </resources>
