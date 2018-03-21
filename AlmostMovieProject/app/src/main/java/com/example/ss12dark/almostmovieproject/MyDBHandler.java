@@ -110,7 +110,6 @@ public class MyDBHandler extends SQLiteOpenHelper{
 
 
     public List<Movie> getAllMovieList() {
-//TODO: to use the watch collum and to check it in start
 
         List<Movie> MovieList = new ArrayList<Movie>();
 

@@ -21,8 +21,6 @@ import java.util.List;
 public class AddFromInternet extends AppCompatActivity {
 
     public ListView listViewMovies;
-    private Dialog insertOrUpdateDialog;
-    private AlertDialog deleteDialog;
     public List<Movie> tempMovies;
     public MoviesReaderController moviesReaderController;
     public Context mContext;
@@ -46,7 +44,6 @@ public class AddFromInternet extends AppCompatActivity {
 
     public void send(int i){
         String tempName = listViewMovies.getAdapter().getItem(i).toString();
-//        String tempPlaceInList = listViewMovies.getAdapter().getItem(i).
         String baseImageUrl = "http://image.tmdb.org/t/p/w185";
 
         tempMovies = moviesReaderController.giveMovies();

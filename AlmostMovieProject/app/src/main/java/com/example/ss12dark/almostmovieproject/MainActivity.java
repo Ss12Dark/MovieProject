@@ -3,6 +3,8 @@ package com.example.ss12dark.almostmovieproject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -20,53 +22,36 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    MyDBHandler db;
-    int i;
-    LinearLayout l;
-    boolean next;
-    List<Movie> names;
-    String tempTitle;
 
-    int watchNum;
-    TextView watchView;
-    Button watchButton;
+    MyDBHandler db;
+    LinearLayout l;
+    List<Movie> names;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        App.setContext(this);
-        db = new MyDBHandler(this);
-        next = true;
-        l = (LinearLayout) findViewById(R.id.linearLayoutMain);
+        App.setContext(this); //i use this for later use to declare startActivityForResult from another Activity.
+        db = new MyDBHandler(this);//start my data base
+        l = (LinearLayout) findViewById(R.id.linearLayoutMain);//the outer layout- so i could use it in addPicture();
             loadMovie();
     }
-
-    public void deleteall(){
-        db.clear();
-        restart();
-    }
-
-    public void restart(){
-        Intent intent = new Intent(this, MainActivity.class);
-        this.startActivity(intent);
-        this.finishAffinity();
-    }
-
+// -----stage 1-----------for each movie in the list i make a customized window with linearLayout--------------------
     public void loadMovie(){
-        names =db.getAllMovieList();
-        i =0;
+        names =db.getAllMovieList();//get list of movies from the data base
+        int i =0;
             if (names.size() == i) {
                 TextView empty = (TextView) findViewById(R.id.showAll);
                 empty.setVisibility(View.VISIBLE);
             } else {
                 while(i<names.size()) {
                 String s = names.get(i).getSubject();
-                tempTitle =s;
                 String u = names.get(i).getUrl();
                 String d = names.get(i).getBody();
                 int id =names.get(i).get_id();
@@ -78,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+// -----stage 2-----------make new Vies as needed and send them --------------------
     public void makeMovie(String name,String description , String url,int id,int No,int watched) {
 
         ImageView image = new ImageView(this);
@@ -148,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         l.addView(ll);
     }
-
+// -----stage 3-----------for each movie in the list i make a customized window with linearLayout--------------------
     public void resizeButton(Button sv){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         sv.setLayoutParams(positionRules);
@@ -219,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         b.getLayoutParams().height = 710;
         b.getLayoutParams().width = 400;
     }
-
+// -----stage 4-----------for each movie in the list i make a customized window with linearLayout--------------------
     public void setAddWatch(final Button b ,int watched,final TextView watchNumberTextView){
 
         resizeTextViewWatchNumber(watchNumberTextView);
@@ -271,14 +256,14 @@ public class MainActivity extends AppCompatActivity {
             if(id==names.get(p).get_id()){
                 names.get(p).setWatched(0);
                 watched = names.get(p).getWatched();
-                db.updateWatch(id);
+                db.resetWatch(id);
             }
         }
         b.setBackground(getDrawable(R.drawable.eye));
         String watch = watched+"";
         watchNumberTextView.setText(watch);
     }
-
+// -----stage 5-----------for each movie in the list i make a customized window with linearLayout--------------------
     public void addPicture(ImageView b,String u) {
         if (u.equals("")) {
             b.setBackgroundResource(R.drawable.nopic);
@@ -287,18 +272,45 @@ public class MainActivity extends AppCompatActivity {
                                  new DownloadImageTask(this,l,this, b, u).execute();
         }
     }
-
+// -----stage 6-----------for each movie in the list i make a customized window with linearLayout--------------------
     public void goToMoviePage(int No){
-        Intent moviePage = new Intent(this,MoviePage.class);
-        moviePage.putExtra("No",No);
-        moviePage.putExtra("switch",0);
-        startActivity(moviePage);
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            Intent moviePage = new Intent(this,MoviePage.class);
+            moviePage.putExtra("No",No);
+            moviePage.putExtra("switch",0);
+            startActivity(moviePage);
+        }else{
+            Toast.makeText(this,"there is no internet connection",Toast.LENGTH_SHORT).show();
+        }
+
+
+
     }
 
+    public void random(View v){
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            Intent moviePage = new Intent(this,MoviePage.class);
+            Random rand = new Random();
+            App.setmView(v);
+            int  n = rand.nextInt(68718) + 50;
+            moviePage.putExtra("No",n);
+            moviePage.putExtra("switch",1);
+            startActivity(moviePage);
+        }else{
+            Toast.makeText(this,"there is no internet connection",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+// -----stage 7-----------for each movie in the list i make a customized window with linearLayout--------------------
     public void goToEdit(View v){
         String movieTitle = v.getTag().toString();
 
-        for(i=0;i<names.size();i++){
+        for(int i=0;i<names.size();i++){
             if(movieTitle.equals(names.get(i).getSubject())){
                 String title =names.get(i).getSubject();
                 String des =names.get(i).getBody();
@@ -315,15 +327,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+// -----stage 8-----------for each movie in the list i make a customized window with linearLayout--------------------
+    public void deleteall(){
+        db.clear();
+        restart();
+    }
 
-    public void random(View v){
-        Intent moviePage = new Intent(this,MoviePage.class);
-        Random rand = new Random();
-        App.setmView(v);
-        int  n = rand.nextInt(68718) + 50;
-        moviePage.putExtra("No",n);
-        moviePage.putExtra("switch",1);
-        startActivity(moviePage);
+    public void restart(){
+        Intent intent = new Intent(this, MainActivity.class);
+        this.startActivity(intent);
+        this.finishAffinity();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
