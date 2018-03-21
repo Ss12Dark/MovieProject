@@ -7,35 +7,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-
 import java.util.List;
 
-/**
- * Created by Android on 13/03/2018.
- */
 public class CustomDialogClass extends Dialog implements
         android.view.View.OnClickListener {
 
-    public Activity c;
-    public Dialog d;
+    public Activity c;//for the use of activity for result
     public Button delete, edit;
     public String NAME;
-    public int ID;
-    MyDBHandler db;
-    List<Movie> names;
+    public int ID;//name and id to know what movie i want to delete or edit
+    MyDBHandler db;//to change by my decision
+    List<Movie> names;// the list to get the names and to delete from
 
     public CustomDialogClass(Activity a,String name,int id) {
         super(a);
         NAME=name;
         ID=id;
         this.c = a;
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.edit_dialog);
         delete = (Button) findViewById(R.id.btn_delete);
         edit = (Button) findViewById(R.id.btn_edit);
@@ -51,18 +46,18 @@ public class CustomDialogClass extends Dialog implements
         switch (v.getId()) {
             case R.id.btn_delete:
                 db.deleteMovie(ID);
-                c.recreate();
+                c.recreate();//so the changes will appear right after the click
                 break;
             case R.id.btn_edit:
-                int i=0;
-                for(i=0;i<names.size();i++){
+
+                for(int i=0;i<names.size();i++){
                     if(NAME.equals(names.get(i).getSubject())){
                         String title =names.get(i).getSubject();
                         String des =names.get(i).getBody();
                         String url =names.get(i).getUrl();
                         int id = names.get(i).get_id();
                         int No = names.get(i).getNo();
-
+//send the edit page the exist movie details to edit
                         Intent editActivity = new Intent(c,EditActivity.class);
                         editActivity.putExtra("No",No);
                         editActivity.putExtra("name",title);

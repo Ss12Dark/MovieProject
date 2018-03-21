@@ -1,25 +1,14 @@
 package com.example.ss12dark.almostmovieproject;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-
-public class FullMoviesReaderController extends FullMovieController implements Serializable {
-    public Activity context;
+public class FullMoviesReaderController extends FullMovieController{
+    public Activity context;//the context of the current activity that on
     public int aSwitch;
 
     public FullMoviesReaderController(Activity activity) {
@@ -30,7 +19,9 @@ public class FullMoviesReaderController extends FullMovieController implements S
 
 
     public void getFullMovie(int No, int num) {
+        //the aSwitch is to check if its a existed movie page on the list or its a random that i ask for
         aSwitch = num;
+        //like i writed before the NO(NumberOrder) is the real id in the original api and to send back to get single movie
         HttpRequest httpRequest = new HttpRequest(this);
         httpRequest.execute("https://api.themoviedb.org/3/movie/" + No + "?api_key=0dfa979f5f5b49d638840ce5b53339c1");
     }
@@ -42,7 +33,7 @@ public class FullMoviesReaderController extends FullMovieController implements S
 
 
             JSONObject jsonObject = new JSONObject(downloadedText);
-
+//i get all the needed from the Json object
 
             int uselessInt = 0;
             int No = jsonObject.getInt("id");
@@ -53,7 +44,7 @@ public class FullMoviesReaderController extends FullMovieController implements S
             String image = baseImageUrl + poster_path;
             int budget = jsonObject.getInt("budget");
             int runtime;
-            try {
+            try {//in case the runtime is null
                 runtime = jsonObject.getInt("runtime");
             }catch (Exception eee) {
                 runtime = 0;
@@ -62,19 +53,21 @@ public class FullMoviesReaderController extends FullMovieController implements S
             String va = jsonObject.getString("vote_average");
             float vote_average = Float.parseFloat(va);
 
-
+//i declare all the details on the object of full movie
             FullMovieInfo movie = new FullMovieInfo(uselessInt, name, desc, image, No, vote_average, release_date, budget, runtime);
 
-            MoviePage.setAllDetails(movie);
+            MoviePage.setAllDetails(movie);//- here i send it to get placed on the page layout and for the user to see the infomation
 
 
         } catch (JSONException ex) {
+            //the aSwitch is to check if its a existed movie page on the list or its a random that i ask for
             if (aSwitch == 1) {
+                //if i got an exception while getting the json or i dont have json to get at all i want the random option to repeat itself
                 MainActivity mContext = (MainActivity) App.getContext();
                 View v = App.getmView();
                 mContext.random(v);
             }
-            Toast.makeText(activity, "Give me a second", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Give me a second", Toast.LENGTH_LONG).show();//for my own use to see if there is an error while running
         }
 
 
