@@ -1,21 +1,13 @@
 package com.example.ss12dark.almostmovieproject;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddFromInternet extends AppCompatActivity {
@@ -44,7 +36,7 @@ public class AddFromInternet extends AppCompatActivity {
 
     public void send(int i){
         String tempName = listViewMovies.getAdapter().getItem(i).toString();
-        String baseImageUrl = "http://image.tmdb.org/t/p/w185";
+        String baseImageUrl = "http://image.tmdb.org/t/p/w185";//cuz' the obtained image url is only part of the URL of the image
 
         tempMovies = moviesReaderController.giveMovies();
 

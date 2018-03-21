@@ -20,8 +20,8 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 
-public class MoviePage extends AppCompatActivity implements Serializable {
-
+public class MoviePage extends AppCompatActivity{
+// i use so many statics so i could use it on a static method and declare it on another class while this class is an activity
     public FullMoviesReaderController fullMoviesReaderController;
     static LinearLayout l;
     static LinearLayout movieLinear;
@@ -42,7 +42,7 @@ public class MoviePage extends AppCompatActivity implements Serializable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO: what if there is no data at all- need an Answer.
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_page);
@@ -74,7 +74,7 @@ public class MoviePage extends AppCompatActivity implements Serializable {
             finish();
         }
     }
-
+//---------this method are used in another class and checks if there is empty places in the details
     public static void setAllDetails(FullMovieInfo movie){
 
 

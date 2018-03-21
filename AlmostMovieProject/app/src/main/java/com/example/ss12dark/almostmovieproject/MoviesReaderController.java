@@ -36,7 +36,7 @@ public Activity contex;
 
         try {
             List<Movie> tempList = new ArrayList<>();
-
+//i tear apart the json to pieaces and get the string i in need for
             JSONObject jsonArray = new JSONObject(downloadedText);
 
             JSONArray resultArray = jsonArray.getJSONArray("results");
@@ -58,8 +58,6 @@ public Activity contex;
                 Movie movie = new Movie(name,desc,image,No);
                 tempList.add(i,movie);
 
-
-
                 Movies.add(name);
             }
 
@@ -71,7 +69,8 @@ public Activity contex;
 
         }
         catch (JSONException ex) {
-            Toast.makeText(activity, "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+//            Toast.makeText(activity, "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+            //need for my own use while using json
         }
 
 

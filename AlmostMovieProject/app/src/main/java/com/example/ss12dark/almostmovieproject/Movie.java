@@ -1,6 +1,5 @@
 package com.example.ss12dark.almostmovieproject;
 
-import java.net.URL;
 
 /**
  * Created by Ss12Dark on 3/9/2018.
@@ -8,12 +7,13 @@ import java.net.URL;
 
 public class Movie {
 
-    private int _id;
-    private String subject;
+    private int _id;//the id if for the my own use and not the real id- its beed a check key to see if the
+                // movie already existed or i made a new one
+    private String subject;//title
     private String body;
     private String url;
-    private int No;
-    private int watched=0;
+    private int No;//the id number of the movie by the API i got (No=NumberOrder)
+    private int watched=0;//the times you watched the movie- always start at 0
 
     public Movie(){}
 

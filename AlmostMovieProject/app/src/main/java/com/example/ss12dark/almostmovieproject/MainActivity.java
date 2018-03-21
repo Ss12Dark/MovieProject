@@ -7,20 +7,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import android.graphics.Color;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebHistoryItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +23,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-
+//-----objects at the class for the use of all the methods
     MyDBHandler db;
     LinearLayout l;
     List<Movie> names;
@@ -63,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-// -----stage 2-----------make new Vies as needed and send them --------------------
+// -----stage 2-----------make new Views as needed and send them to get size's and text--------------------
     public void makeMovie(String name,String description , String url,int id,int No,int watched) {
 
         ImageView image = new ImageView(this);
@@ -75,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout llimageInside = new LinearLayout(this);
         final Button goPageButton = new Button(this);
         Button watchButton = new Button(this);
-
+//------i resize each of the views in owns methods
         resizeLinearLayoutimageInside(llimageInside);
         resizeButton(goPageButton);
         resizeLinearLayoutinside(llinside);
@@ -83,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
         resizeLinearLayout(ll);
         resizeImageView(image);
         resizeTextView(title);
-
+//-------watch(eye) button and his rewrite in the database
         watchButton.setTag(id);
         setAddWatch(watchButton,watched,watchNumberTextView);
         addPicture(image, url);
-
+//-----i set tags on the image and buttom so i could get the tag in inner method like onClickListener
         image.setTag(name);
         goPageButton.setTag(No);
 
@@ -95,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         goPageButton.setTextSize(13);
         title.setText(name);
         des.setText(description);
-
+//----------------------------------this is the dialog and and the click listener on imageView-------------
         final CustomDialogClass cdd = new CustomDialogClass(MainActivity.this, name, id);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+//-------i set on click on the go movie page button and send with him the No(Number Order) of the id in the api----
         goPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 goToMoviePage(No);
             }
         });
-
+//---------i put the layouts and the views in the right order in the right linears-------------
         llinside.addView(title);
         llinside.addView(des);
         if(No!=0) {
@@ -133,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
         l.addView(ll);
     }
-// -----stage 3-----------for each movie in the list i make a customized window with linearLayout--------------------
+// -----stage 3-----------all the methods that resize each of the view in particular--------------------
     public void resizeButton(Button sv){
         LinearLayout.LayoutParams positionRules = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         sv.setLayoutParams(positionRules);
@@ -204,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
         b.getLayoutParams().height = 710;
         b.getLayoutParams().width = 400;
     }
-// -----stage 4-----------for each movie in the list i make a customized window with linearLayout--------------------
+// -----stage 4-----------here i set the size and appearance condition for the watch(eye symbol) number and logo-----
     public void setAddWatch(final Button b ,int watched,final TextView watchNumberTextView){
 
         resizeTextViewWatchNumber(watchNumberTextView);
@@ -263,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
         String watch = watched+"";
         watchNumberTextView.setText(watch);
     }
-// -----stage 5-----------for each movie in the list i make a customized window with linearLayout--------------------
+// -----stage 5-----------here i set up image and the imageView or give the default image--------------------
     public void addPicture(ImageView b,String u) {
         if (u.equals("")) {
             b.setBackgroundResource(R.drawable.nopic);
@@ -272,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                                  new DownloadImageTask(this,l,this, b, u).execute();
         }
     }
-// -----stage 6-----------for each movie in the list i make a customized window with linearLayout--------------------
+// -----stage 6-----------random and movie page is the same page but send different "key" so i know if search for exist movie or a random one--------------------
     public void goToMoviePage(int No){
 
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -306,10 +301,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-// -----stage 7-----------for each movie in the list i make a customized window with linearLayout--------------------
+// -----stage 7-----------the method for the edit an existed movie and his properties--------------------
     public void goToEdit(View v){
         String movieTitle = v.getTag().toString();
-
+//i send all the movie informations into the edit stage
         for(int i=0;i<names.size();i++){
             if(movieTitle.equals(names.get(i).getSubject())){
                 String title =names.get(i).getSubject();
@@ -327,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-// -----stage 8-----------for each movie in the list i make a customized window with linearLayout--------------------
+// -----stage 8-----------delete all as separated method for convenience| restart is to refresh the activity after some changes--------------------
     public void deleteall(){
         db.clear();
         restart();
@@ -338,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
         this.finishAffinity();
     }
-
+// -----stage 9-----------all the menu options as set and what happen when they selected--------------------
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
@@ -362,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.addManuall:
                 Intent add = new Intent(this,EditActivity.class);
-                add.putExtra("id",-1);
+                add.putExtra("id",-1);//the id i sent is to get recognized at the next activity that its adding movie that i want
                 startActivityForResult(add,1);
                 return true;
             case R.id.exit:
@@ -376,10 +371,10 @@ public class MainActivity extends AppCompatActivity {
 
         return false;
     }
-
+// -----stage 10-----------onResult for the result that come back from the edit page--------------------
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+//-----------here i get the extras from the edit page and put in movie object by the data i get and send for the database
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 int No=data.getIntExtra("No",0);
@@ -407,7 +402,7 @@ public class MainActivity extends AppCompatActivity {
                     db.addMovie(movie);
                 }
 
-
+//-------------i recreate the page because there is a new movie at the list and need to be added directly
                 this.recreate();
 
 

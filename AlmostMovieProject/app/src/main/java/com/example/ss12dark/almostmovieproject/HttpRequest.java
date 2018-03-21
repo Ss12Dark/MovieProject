@@ -31,11 +31,11 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
         this.callbacks = callbacks;
         this.httpMethod = GET;
     }
-
-    public HttpRequest(Callbacks callbacks, int httpMethod) {
-        this.callbacks = callbacks;
-        this.httpMethod = httpMethod;
-    }
+//
+//    public HttpRequest(Callbacks callbacks, int httpMethod) {
+//        this.callbacks = callbacks;
+//        this.httpMethod = httpMethod;
+//    }
 
     protected void onPreExecute() {
         callbacks.onAboutToStart();
@@ -51,7 +51,7 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
         try {
             URL url = new URL(params[0]);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
+//i open the conncetion to set requests and to get responds
             if (httpMethod == POST) {
                 String parameters = params[1]; // Url Parameters
                 byte[] parameterBytes = parameters.getBytes();
@@ -64,7 +64,7 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
             int httpStatusCode = connection.getResponseCode();
 
             if (httpStatusCode != HttpURLConnection.HTTP_OK) {
-
+//if the http is not ok i want the random to repeat itself and give me another http url
                 mContext=(MainActivity)App.getContext();
                 v = App.getmView();
                 mContext.random(v);
@@ -87,11 +87,7 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
 
             return downloadedText;
         } catch (IOException ex) {
-//            errorMessage = ex.getMessage();
-//            mContext=(MainActivity)App.getContext();
-//            v = App.getmView();
-//            mContext.random(v);
-            return "a second";
+            return "a second";//the exception is now dealing with so i toasted "a second"
         } finally {
             if (bufferedReader != null) try {
                 bufferedReader.close();
