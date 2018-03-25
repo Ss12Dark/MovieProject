@@ -67,7 +67,7 @@ public class FullMoviesReaderController extends FullMovieController{
                 View v = App.getmView();
                 mContext.random(v);
             }
-            Toast.makeText(activity, "Give me a second", Toast.LENGTH_LONG).show();//for my own use to see if there is an error while running
+            Toast.makeText(activity, R.string.givesecond, Toast.LENGTH_LONG).show();//for my own use to see if there is an error while running
         }
 
 

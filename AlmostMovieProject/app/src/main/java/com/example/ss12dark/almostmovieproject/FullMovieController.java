@@ -23,8 +23,8 @@ public abstract class FullMovieController  implements HttpRequest.Callbacks {
         this.activity = activity;
 
         progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Downloading...");
-        progressDialog.setMessage("Please Wait...");
+        progressDialog.setTitle(activity.getString(R.string.download));
+        progressDialog.setMessage(activity.getString(R.string.pleasewait));
 
     }
 

@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
             moviePage.putExtra("switch",1);
             startActivity(moviePage);
         }else{
-            Toast.makeText(this,"there is no internet connection",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.nointernet,Toast.LENGTH_SHORT).show();
         }
 
     }

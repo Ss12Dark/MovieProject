@@ -68,7 +68,7 @@ public class HttpRequest extends AsyncTask<String, Void, String> {
                 mContext=(MainActivity)App.getContext();
                 v = App.getmView();
                 mContext.random(v);
-                errorMessage = "a second";
+                errorMessage = mContext.getString(R.string.asecond);
                 return null;
             }
 

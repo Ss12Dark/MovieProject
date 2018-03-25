@@ -21,8 +21,8 @@ public abstract class MovieController  implements HttpRequest.Callbacks {
         this.activity = activity;
         listViewMovies = (ListView)activity.findViewById(R.id.listView);
         progressDialog = new ProgressDialog(activity);
-        progressDialog.setTitle("Downloading...");
-        progressDialog.setMessage("Please Wait...");
+        progressDialog.setTitle(activity.getString(R.string.download));
+        progressDialog.setMessage(activity.getString(R.string.pleasewait));
     }
 
 

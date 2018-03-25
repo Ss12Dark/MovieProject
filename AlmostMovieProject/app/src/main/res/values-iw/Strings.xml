@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">פרוייקט סרטים</string>
+    <string name="movie_s_name">שם הסרט</string>
+    <string name="movie_s_description">תיאור הסרט</string>
+    <string name="movie_s_image_url">קישור תמונת הסרט</string>
+    <string name="show">הצג</string>
+    <string name="ok">אוקי</string>
+    <string name="cancel">ביטול</string>
+    <string name="movieCreated">סרט נוצר</string>
+    <string name="movie_list_are_empty">ספריית הסרטים ריקה</string>
+    <string name="edit">ערוך</string>
+    <string name="delete">מחק</string>
+    <string name="do_you_want_to_edit_the_movie_or_to_delete_it">האם אתה רוצה למחוק או לערוך את הסרט</string>
+    <string name="go">צא</string>
+    <string name="search">חפש</string>
+    <string name="add_by_internet">הוספה מהאינטרנט</string>
+    <string name="add_by_yourself">הוספה ידנית</string>
+    <string name="exit">יציאה</string>
+    <string name="delete_all">מחק הכל</string>
+    <string name="gotopage">לך אל העמוד</string>
+    <string name="moviepage">דף הסרט</string>
+    <string name="share">שתף</string>
+    <string name="shares">שיתוף</string>
+    <string name="addmovie">הוסף סרט</string>
+    <string name="setting">הגדרות</string>
+    <string name="random_movie">סרט רנדומאלי</string>
+    <string name="noinformationexisted">אורך הסרט: אין אינפורציה קיימת</string>
+    <string name="releasedate"> תאריך יציאה: </string>
+    <string name="movielenght"> אורך הסרט: </string>
+    <string name="noinformation">אין אינפורציה קיימת </string>
+    <string name="movielength2"> שעות ו- </string>
+    <string name="movielength3"> דקות </string>
+    <string name="budget"> עלות כוללת: </string>
+    <string name="score"> ציון: </string>
+    <string name="noinfomration2">אין אינפורציה קיימת </string>
+    <string name="share1">צפייה חובה בסרט </string>
+    <string name="share2">. ציון הסרט הוא </string>
+    <string name="movietitleedit">שם/כותרת הסרט ריקה</string>
+    <string name="movieexsited">סרט עם שם זהה כבר קיים ברשימה</string>
+    <string name="nointernet">אין חיבור לאינטרנט</string>
+    <string name="asecond">תן שניה</string>
+    <string name="givesecond">שניה בודדת וזהו</string>
+    <string name="download">מוריד...</string>
+    <string name="pleasewait">בבקשה המתן...</string>
+</resources>

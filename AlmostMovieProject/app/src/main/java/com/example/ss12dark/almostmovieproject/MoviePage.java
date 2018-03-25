@@ -49,8 +49,8 @@ public class MoviePage extends AppCompatActivity{
         movieLinear=(LinearLayout) findViewById(R.id.fullMovie);
         fullMoviesReaderController = new FullMoviesReaderController(this);
         Intent i = getIntent();
-        int No =i.getIntExtra("No",0);
-        aSwitch =i.getIntExtra("switch",0);
+        int No =i.getIntExtra("No",0);//gets the NumberOrder of the movie so i can send it in the api
+        aSwitch =i.getIntExtra("switch",0);//this variable is to check if its random movie or existed movie and change the code.
         fullMoviesReaderController.getFullMovie(No,aSwitch);
         l = (LinearLayout) findViewById(R.id.l);
         head = (TextView) findViewById(R.id.title);
@@ -61,7 +61,7 @@ public class MoviePage extends AppCompatActivity{
         date = (TextView) findViewById(R.id.release_date);
         budget = (TextView) findViewById(R.id.budget);
         runtime = (TextView) findViewById(R.id.runtime);
-        activity = this;
+        activity = this;//so i will be able to get the resources and strings
         context = this;
 
 
@@ -89,39 +89,39 @@ public class MoviePage extends AppCompatActivity{
         }
 
         String voteText;
-        if(0==movie.getVote_average()){
+        if(0==movie.getVote_average()){//check if there are an available score
             rate.setVisibility(View.GONE);
             vote.setVisibility(View.VISIBLE);
-            voteText = "there are no information on this detail";
+            voteText = activity.getString(R.string.noinfomration2);
         }else {
             voteText = movie.getVote_average()+"";
-            if(7<=movie.getVote_average()){
+            if((float)6.5<=movie.getVote_average()){//check if the score is high or low and paint the color red\green in result
                 movieLinear.setBackgroundResource(R.drawable.layoutstylegreen);
             }else{
                 movieLinear.setBackgroundResource(R.drawable.layoutstylered);
             }
         }
-
-        vote.setText("Score: "+voteText);
+//-----------------all string is from the strings values so i could change language
+        vote.setText(activity.getString(R.string.score)+" "+voteText);
         rate.setNumStars(5);
         rate.setMax(5);
         float rating = (float) 0.5*movie.getVote_average();
         rate.setStepSize((float)0.05);
         rate.setRating(rating);
-        date.setText("Release Date: "+movie.getRelease_date());
+        date.setText(activity.getString(R.string.releasedate)+" "+movie.getRelease_date());
         String money;
         if(0==movie.getBudget()){
-            money = "there are no information on this detail";
+            money = activity.getString(R.string.noinformation);
         }else {
             money = movie.getBudget() + "";
         }
-        budget.setText("Budget: "+money);
+        budget.setText(activity.getString(R.string.budget)+" "+money);
         if(0!=movie.getRuntime()) {
             int hours = movie.getRuntime() / 60;
             int minutes = movie.getRuntime() % 60;
-            runtime.setText("Movie length: " + hours + " hours and " + minutes + " minutes");
+            runtime.setText(activity.getString(R.string.movielenght)+" " + hours+" " + activity.getString(R.string.movielength2)+" " + minutes+" " + activity.getString(R.string.movielength3)+" ");
         }else{
-            runtime.setText("Movie length: there are no information on this detail");
+            runtime.setText(R.string.noinformationexisted);
         }
 
         movieName = movie.getSubject().toString();
@@ -132,7 +132,7 @@ public class MoviePage extends AppCompatActivity{
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT,
-                "You just have to see the movie "+movieName+". The movie score is "+movieScore+"!!!");
+                getString(R.string.share1)+" "+movieName+" "+getString(R.string.share2)+" "+movieScore+"!!!");//default messege in the share option
         sendIntent.setType("text/plain");
         startActivity(sendIntent.createChooser(sendIntent, getResources().getText(R.string.app_name)));
     }

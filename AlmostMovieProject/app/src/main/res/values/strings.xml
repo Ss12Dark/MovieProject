@@ -24,4 +24,22 @@
     <string name="addmovie">addMovie</string>
     <string name="setting">setting</string>
     <string name="random_movie">Random Movie</string>
+    <string name="noinformationexisted">Movie length: no information existed</string>
+    <string name="releasedate">Release Date:</string>
+    <string name="movielenght">Movie length:</string>
+    <string name="noinformation">no information existed</string>
+    <string name="movielength2">hours and</string>
+    <string name="movielength3">minutes</string>
+    <string name="budget">Budget:</string>
+    <string name="score">Score:</string>
+    <string name="noinfomration2">no information existed</string>
+    <string name="share1">You just have to see the movie</string>
+    <string name="share2">. The movie score is</string>
+    <string name="movietitleedit">Movie Title/name has to be filled</string>
+    <string name="movieexsited">the movie title is already existed</string>
+    <string name="nointernet">there is no internet connection</string>
+    <string name="asecond">a second</string>
+    <string name="givesecond">Give me a second</string>
+    <string name="download">Downloading...</string>
+    <string name="pleasewait">Please Wait...</string>
 </resources>
